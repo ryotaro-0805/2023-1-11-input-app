@@ -1,13 +1,19 @@
 *,html,body{
   margin: 0;
   padding: 0;
+  text-align: center;
+}
+
+.div{
+  cursor: pointer;
+  transition: .25s;
+  background-color: antiquewhite;
+  position: relative;
 }
 
 .image{
-  cursor: pointer;
-  transition: .25s;
-}
-
-.image:hover{
-  opacity: .7;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  transition: .5s;
 }

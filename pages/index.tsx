@@ -21,12 +21,21 @@ export default function Home() {
     setText(['First Text']);
   }
 
-  const [handlePic,setHandlePic]=useState(img1);
+  const [handlePic1,setHandlePic1]=useState(1);
+  const [handlePic2,setHandlePic2]=useState(0);
 
   const handleClick:any=()=>{
-    if (handlePic===img1) setHandlePic(img2);
-    else setHandlePic(img1);
+    if (handlePic1===0) {
+      setHandlePic1(1);
+      setHandlePic2(0);
+    } else {
+      setHandlePic1(0);
+      setHandlePic2(1);
+    }
   }
+
+  const opa1:object={opacity:handlePic1};
+  const opa2:object={opacity:handlePic2};
 
   return (
     <>
@@ -52,7 +61,10 @@ export default function Home() {
           <p key={index}>{data}</p>
         ))}
       </div>
-      <Image className='image' onClick={handleClick} src={handlePic} alt='pic1' width={200} />
+      <div className='div' onClick={handleClick}>
+      <Image className='image' src={img1} style={opa1} alt='pic' width={200} />
+      <Image className='image' src={img2} style={opa2} alt='pic' width={200} />
+      </div>
       {/* <Image src={img2} alt='pic2' width={200} /> */}
       {/* <img src='img/pic2.jpg' alt='pic2' width={200} /> */}
     </>
