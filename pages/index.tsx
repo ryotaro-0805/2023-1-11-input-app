@@ -1,5 +1,8 @@
 import Head from 'next/head'
+import Image from 'next/image';
 import { useEffect, useRef, useState } from 'react'
+import img1 from '../public/img/pic1.jpg'
+import img2 from '../public/img/pic2.jpg'
 
 export default function Home() {
   const [text, setText] = useState(['First Text']);
@@ -16,6 +19,13 @@ export default function Home() {
 
   const clearFnc = () => {
     setText(['First Text']);
+  }
+
+  const [handlePic,setHandlePic]=useState(img1);
+
+  const handleClick:any=()=>{
+    if (handlePic===img1) setHandlePic(img2);
+    else setHandlePic(img1);
   }
 
   return (
@@ -42,6 +52,9 @@ export default function Home() {
           <p key={index}>{data}</p>
         ))}
       </div>
+      <Image className='image' onClick={handleClick} src={handlePic} alt='pic1' width={200} />
+      {/* <Image src={img2} alt='pic2' width={200} /> */}
+      {/* <img src='img/pic2.jpg' alt='pic2' width={200} /> */}
     </>
   )
 }

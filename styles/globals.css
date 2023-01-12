@@ -2,3 +2,12 @@
   margin: 0;
   padding: 0;
 }
+
+.image{
+  cursor: pointer;
+  transition: .25s;
+}
+
+.image:hover{
+  opacity: .7;
+}
