@@ -3,14 +3,21 @@ import Image from 'next/image';
 import { useEffect, useRef, useState } from 'react'
 import img1 from '../public/img/pic1.jpg'
 import img2 from '../public/img/pic2.jpg'
+import { db } from './firebase';
+import { getFirestore, collection, getDocs, setDoc, doc, addDoc } from 'firebase/firestore';
+import { async } from '@firebase/util';
+import { stringify } from 'querystring';
 
 export default function Home() {
-  const [text, setText] = useState(['First Text']);
+  const [text, setText] = useState(['No text']);
   const textRef: any = useRef('');
   const handleText = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (text[0] === 'First Text') setText(['']);
+    const getText: string = textRef.current.value;
+    if (text[0] === 'No text') setText(['']);
     setText((inData) => [...inData, textRef.current.value]);
+    handleRegister(getText);
+    getData();
   }
 
   useEffect(() => {
@@ -18,14 +25,14 @@ export default function Home() {
   }, [text]);
 
   const clearFnc = () => {
-    setText(['First Text']);
+    setText(['No text']);
   }
 
-  const [handlePic1,setHandlePic1]=useState(1);
-  const [handlePic2,setHandlePic2]=useState(0);
+  const [handlePic1, setHandlePic1] = useState(1);
+  const [handlePic2, setHandlePic2] = useState(0);
 
-  const handleClick:any=()=>{
-    if (handlePic1===0) {
+  const handleClick: any = () => {
+    if (handlePic1 === 0) {
       setHandlePic1(1);
       setHandlePic2(0);
     } else {
@@ -34,8 +41,46 @@ export default function Home() {
     }
   }
 
-  const opa1:object={opacity:handlePic1};
-  const opa2:object={opacity:handlePic2};
+  const opa1: object = { opacity: handlePic1 };
+  const opa2: object = { opacity: handlePic2 };
+
+  const [firestoreText, setFirestoreText] = useState(Array<string>);
+
+  // Firestoreからデータを取得
+  const getData = async () => {
+    const text = collection(db, 'users');
+    const querySnapshot = await getDocs(text);
+    setFirestoreText(['']);
+    querySnapshot.docs.map((doc) => {
+      setFirestoreText((inData: Array<string>) => [...inData, doc.data().text]);
+    });
+  }
+
+  // Firestoreへデータを保存
+  // idを指定する場合（'test'がID、dbはアプリ情報、usersがデータベース名）
+  // const handleRegister=async()=>{
+  //  await setDoc(doc(db,'users','test'),{
+  //     text:'nigth',
+  //   });
+  // }
+  // handleRegister();
+
+  // idを自動生成してデータを追加
+  // 公式サイト古い？公式サイトのやり方では出来ないので以下参照
+  const handleRegister = (getText: string) => {
+    addDoc(collection(db, 'users'), {
+      text: getText
+    });
+  }
+  // const handleRegister=async()=>{
+  //   await db.collection('users').add({
+  //     text:'baybay'
+  // });
+  // handleRegister();
+
+  useEffect(() => {
+    getData();
+  }, []);
 
   return (
     <>
@@ -55,18 +100,27 @@ export default function Home() {
           </label>
         </form>
         <button onClick={clearFnc}>Clear</button>
-        <hr style={{margin:'10px 0'}} />
+        <hr style={{ margin: '10px 0' }} />
         <h3>Texts entered</h3>
         {text.map((data, index) => (
           <p key={index}>{data}</p>
         ))}
       </div>
       <div className='div' onClick={handleClick}>
-      <Image className='image' src={img1} style={opa1} alt='pic' width={200} />
-      <Image className='image' src={img2} style={opa2} alt='pic' width={200} />
+        {/* <Image className='image' src={img1} style={opa1} alt='pic' width={200} /> */}
+        {/* <Image className='image' src={img2} style={opa2} alt='pic' width={200} /> */}
       </div>
       {/* <Image src={img2} alt='pic2' width={200} /> */}
       {/* <img src='img/pic2.jpg' alt='pic2' width={200} /> */}
+      <hr />
+      <h3>Firestore Data</h3>
+      {firestoreText.map((text, index) => (
+        <p key={index}>{text}</p>
+      ))}
+      <div className='pass_div'>
+        <span className='pass_span'>パスワードを入力</span>
+        <input className='pass_input' type="text" />
+      </div>
     </>
   )
 }

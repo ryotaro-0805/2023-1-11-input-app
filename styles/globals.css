@@ -17,3 +17,31 @@
   transform: translateX(-50%);
   transition: .5s;
 }
+
+input{
+  text-align: left;
+}
+
+.pass_div{
+  margin-top: 30px;
+  position: relative;
+}
+
+.pass_span{
+  margin-left: 5px;
+  padding: 0 5px;
+  font-size: 5px;
+  background-color: #ffffff;
+  position: absolute;
+  top: -35%;
+}
+/* 
+.pass_span::before,.pass_span::after{
+  content: '　';
+} */
+
+.pass_input{
+ height: 20px;
+ border-radius: 5px;
+}
+
