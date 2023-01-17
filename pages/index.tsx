@@ -3,7 +3,7 @@ import Image from 'next/image';
 import { useEffect, useRef, useState } from 'react'
 import img1 from '../public/img/pic1.jpg'
 import img2 from '../public/img/pic2.jpg'
-import { db } from './firebase';
+import { db } from '../public/firebase';
 import { getFirestore, collection, getDocs, setDoc, doc, addDoc } from 'firebase/firestore';
 import { async } from '@firebase/util';
 import { stringify } from 'querystring';
