@@ -1,10 +1,12 @@
+// このコードはfirebase接続と写真を表示させる記述あり
+
 import Head from 'next/head'
 import Image from 'next/image';
 import { useEffect, useRef, useState } from 'react'
 import img1 from '../public/img/pic1.jpg'
 import img2 from '../public/img/pic2.jpg'
 import { db } from '../public/firebase';
-import { getFirestore, collection, getDocs, setDoc, doc, addDoc } from 'firebase/firestore';
+import { getFirestore, collection, getDocs, setDoc, doc, addDoc, deleteDoc } from 'firebase/firestore';
 import { async } from '@firebase/util';
 import { stringify } from 'querystring';
 
@@ -56,6 +58,13 @@ export default function Home() {
     });
   }
 
+  // Firestoreのデータを削除
+  const deleteFnc=()=>{
+    deleteDoc(doc(db,'users',''));
+    console.log('deleted!');
+    
+  }
+  
   // Firestoreへデータを保存
   // idを指定する場合（'test'がID、dbはアプリ情報、usersがデータベース名）
   // const handleRegister=async()=>{
@@ -100,6 +109,8 @@ export default function Home() {
           </label>
         </form>
         <button onClick={clearFnc}>Clear</button>
+        <br />
+        <button onClick={deleteFnc}>Delete</button>
         <hr style={{ margin: '10px 0' }} />
         <h3>Texts entered</h3>
         {text.map((data, index) => (
