@@ -11,7 +11,7 @@ export default function cautionPage() {
   const returnFnc=(judge)=>{
     if (judge==='yes'){
       router.push({
-        pathname:'/delete',
+        pathname:'/components/delete',
         query:{
           data:'yes',
         },
