@@ -7,8 +7,7 @@ import img1 from '../public/img/pic1.jpg'
 import img2 from '../public/img/pic2.jpg'
 import { db } from '../public/firebase';
 import { getFirestore, collection, getDocs, setDoc, doc, addDoc, deleteDoc } from 'firebase/firestore';
-import { async } from '@firebase/util';
-import { stringify } from 'querystring';
+import { useRouter } from 'next/router';
 
 export default function Home() {
   const [text, setText] = useState(['No text']);
@@ -22,6 +21,8 @@ export default function Home() {
     getData();
   }
 
+  const [delSwitch,setDelSwitch]=useState('no');
+  
   useEffect(() => {
     textRef.current.value = ('');
   }, [text]);
@@ -58,15 +59,23 @@ export default function Home() {
     });
   }
 
+  const [delText, setDelText] = useState([]);
+
   // Firestoreのデータを削除
-  const deleteFnc=()=>{
-    deleteDoc(doc(db,'users',''));
-    console.log('deleted!');
-    
+  const deleteFnc = async () => {
+    const querySnapshot = await (getDocs(collection(db, 'users')));
+    querySnapshot.docs.map((doc) => {
+      setDelText((inData: Array<string>) => [...inData, doc.id]);
+    });
   }
-  
+
+  useEffect(() => {
+    delText.map(inData => deleteDoc(doc(db, 'users', inData)));
+    getData();
+  }, [delText]);
+
   // Firestoreへデータを保存
-  // idを指定する場合（'test'がID、dbはアプリ情報、usersがデータベース名）
+  // idを指定する場合（'test'がID、dbはアプリ情報、usersがデータベース名(’コレクションを開始’欄のもの)）
   // const handleRegister=async()=>{
   //  await setDoc(doc(db,'users','test'),{
   //     text:'nigth',
@@ -89,7 +98,24 @@ export default function Home() {
 
   useEffect(() => {
     getData();
+    router.query.data==='yes' && deleteFnc();
+
+    console.log(router.query.data);
+    
   }, []);
+
+  // ページ遷移
+  const router = useRouter();
+  const handleRouter=()=>{
+    // getData(); //まずはFirestoreのデータを取得しておく
+    router.push({
+      pathname:'/cautionPage',
+      query:{
+        data:delSwitch,
+      },
+    },'caution-page');
+  }
+
 
   return (
     <>
@@ -108,9 +134,9 @@ export default function Home() {
             <br />
           </label>
         </form>
-        <button onClick={clearFnc}>Clear</button>
+        <button onClick={clearFnc}>InputData Clear</button>
         <br />
-        <button onClick={deleteFnc}>Delete</button>
+        <button onClick={handleRouter}>Go to cautionPage</button>
         <hr style={{ margin: '10px 0' }} />
         <h3>Texts entered</h3>
         {text.map((data, index) => (
@@ -128,6 +154,8 @@ export default function Home() {
       {firestoreText.map((text, index) => (
         <p key={index}>{text}</p>
       ))}
+
+      {/* googleのバスワード入力画面っぽいものを作ってみた */}
       <div className='pass_div'>
         <span className='pass_span'>パスワードを入力</span>
         <input className='pass_input' type="text" />

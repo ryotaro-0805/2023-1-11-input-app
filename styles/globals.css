@@ -22,6 +22,8 @@ input{
   text-align: left;
 }
 
+/* googleのバスワード入力画面っぽいものを作ってみた */
+
 .pass_div{
   margin-top: 30px;
   position: relative;
@@ -35,10 +37,6 @@ input{
   position: absolute;
   top: -35%;
 }
-/* 
-.pass_span::before,.pass_span::after{
-  content: '　';
-} */
 
 .pass_input{
  height: 20px;
