@@ -1,17 +1,13 @@
-// このコードはfirebase接続と写真を表示させる記述あり
-
 import Head from 'next/head'
-import Image from 'next/image';
 import { useEffect, useRef, useState } from 'react'
-import img1 from '../public/img/pic1.jpg'
-import img2 from '../public/img/pic2.jpg'
 import { db } from '../public/firebase';
-import { getFirestore, collection, getDocs, setDoc, doc, addDoc, deleteDoc } from 'firebase/firestore';
+import { collection, getDocs, doc, addDoc, deleteDoc } from 'firebase/firestore';
 import { useRouter } from 'next/router';
 
 export default function Home() {
   const [text, setText] = useState(['No text']);
   const textRef: any = useRef('');
+  const delSwitch = 'no';
   const handleText = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const getText: string = textRef.current.value;
@@ -21,8 +17,6 @@ export default function Home() {
     getData();
   }
 
-  const [delSwitch,setDelSwitch]=useState('no');
-  
   useEffect(() => {
     textRef.current.value = ('');
   }, [text]);
@@ -30,22 +24,6 @@ export default function Home() {
   const clearFnc = () => {
     setText(['No text']);
   }
-
-  const [handlePic1, setHandlePic1] = useState(1);
-  const [handlePic2, setHandlePic2] = useState(0);
-
-  const handleClick: any = () => {
-    if (handlePic1 === 0) {
-      setHandlePic1(1);
-      setHandlePic2(0);
-    } else {
-      setHandlePic1(0);
-      setHandlePic2(1);
-    }
-  }
-
-  const opa1: object = { opacity: handlePic1 };
-  const opa2: object = { opacity: handlePic2 };
 
   const [firestoreText, setFirestoreText] = useState(Array<string>);
 
@@ -90,32 +68,23 @@ export default function Home() {
       text: getText
     });
   }
-  // const handleRegister=async()=>{
-  //   await db.collection('users').add({
-  //     text:'baybay'
-  // });
-  // handleRegister();
 
   useEffect(() => {
     getData();
-    router.query.data==='yes' && deleteFnc();
-
-    console.log(router.query.data);
-    
+    router.query.data === 'yes' && deleteFnc();
   }, []);
 
   // ページ遷移
   const router = useRouter();
-  const handleRouter=()=>{
+  const handleRouter = () => {
     // getData(); //まずはFirestoreのデータを取得しておく
     router.push({
-      pathname:'/cautionPage',
-      query:{
-        data:delSwitch,
+      pathname: '/cautionPage',
+      query: {
+        data: delSwitch,
       },
-    },'caution-page');
+    }, 'caution-page');
   }
-
 
   return (
     <>
@@ -134,32 +103,20 @@ export default function Home() {
             <br />
           </label>
         </form>
-        <button onClick={clearFnc}>InputData Clear</button>
+        <button onClick={clearFnc}>Input Data Clear</button>
         <br />
-        <button onClick={handleRouter}>Go to cautionPage</button>
+        <button onClick={handleRouter}>Firestore Data Delete</button>
         <hr style={{ margin: '10px 0' }} />
         <h3>Texts entered</h3>
         {text.map((data, index) => (
           <p key={index}>{data}</p>
         ))}
       </div>
-      <div className='div' onClick={handleClick}>
-        {/* <Image className='image' src={img1} style={opa1} alt='pic' width={200} /> */}
-        {/* <Image className='image' src={img2} style={opa2} alt='pic' width={200} /> */}
-      </div>
-      {/* <Image src={img2} alt='pic2' width={200} /> */}
-      {/* <img src='img/pic2.jpg' alt='pic2' width={200} /> */}
       <hr />
       <h3>Firestore Data</h3>
       {firestoreText.map((text, index) => (
         <p key={index}>{text}</p>
       ))}
-
-      {/* googleのバスワード入力画面っぽいものを作ってみた */}
-      <div className='pass_div'>
-        <span className='pass_span'>パスワードを入力</span>
-        <input className='pass_input' type="text" />
-      </div>
     </>
   )
 }

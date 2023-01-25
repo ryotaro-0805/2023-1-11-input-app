@@ -4,42 +4,6 @@
   text-align: center;
 }
 
-.div{
-  cursor: pointer;
-  transition: .25s;
-  background-color: antiquewhite;
-  position: relative;
-}
-
-.image{
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  transition: .5s;
-}
-
 input{
   text-align: left;
 }
-
-/* googleのバスワード入力画面っぽいものを作ってみた */
-
-.pass_div{
-  margin-top: 30px;
-  position: relative;
-}
-
-.pass_span{
-  margin-left: 5px;
-  padding: 0 5px;
-  font-size: 5px;
-  background-color: #ffffff;
-  position: absolute;
-  top: -35%;
-}
-
-.pass_input{
- height: 20px;
- border-radius: 5px;
-}
-
