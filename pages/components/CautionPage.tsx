@@ -5,8 +5,6 @@ import { useRouter } from 'next/router';
 export default function CautionPage() {
   
   const routerData=useRouter();
-  // const router=useRouter();
-  // console.log(router. query.data);
 
   const returnFnc=(judge:string)=>{
     if (judge==='yes'){

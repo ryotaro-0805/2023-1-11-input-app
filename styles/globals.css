@@ -4,6 +4,12 @@
   text-align: center;
 }
 
+body{
+  padding-top: 100px;
+  height: 100vh;
+  background: linear-gradient(rgb(126, 126, 6),rgb(235, 235, 211));
+}
+
 input{
   text-align: left;
 }

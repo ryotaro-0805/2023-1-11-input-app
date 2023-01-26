@@ -1,7 +1,7 @@
 import Head from 'next/head'
 import { useEffect, useRef, useState } from 'react'
 import { db } from '../public/firebase';
-import { collection, getDocs, doc, addDoc, deleteDoc } from 'firebase/firestore';
+import { collection, getDocs, doc, addDoc, deleteDoc, query, orderBy } from 'firebase/firestore';
 import { useRouter } from 'next/router';
 
 export default function Home() {
@@ -31,25 +31,26 @@ export default function Home() {
   // Firestoreからデータを取得
   const getData = async () => {
     const text = collection(db, 'users');
-    const querySnapshot = await getDocs(text);
+    const q = query(text, orderBy('timeStamp', 'desc')); // 登録順に並び替え
+    const querySnapshot = await getDocs(q);
     setFirestoreText(['']);
     querySnapshot.docs.map((doc) => {
       setFirestoreText((inData: Array<string>) => [...inData, doc.data().text]);
     });
   }
 
-  const [delText, setDelText]:any = useState([]);
+  const [delText, setDelText]: any = useState([]);
 
   // Firestoreのデータを削除
   const deleteFnc = async () => {
     const querySnapshot = await (getDocs(collection(db, 'users')));
     querySnapshot.docs.map((doc) => {
-      setDelText((inData:never) => [...inData, doc.id]);
+      setDelText((inData: never) => [...inData, doc.id]);
     });
   }
 
   useEffect(() => {
-    delText.map((inData:string) => deleteDoc(doc(db, 'users', inData)));
+    delText.map((inData: string) => deleteDoc(doc(db, 'users', inData)));
     getData();
   }, [delText]);
 
@@ -72,7 +73,7 @@ export default function Home() {
 
   useEffect(() => {
     getData();
-    // router.query.data === 'yes' && deleteFnc();
+    router.query.data === 'yes' && deleteFnc();
   }, []);
 
   // ページ遷移
@@ -85,7 +86,7 @@ export default function Home() {
       },
     }, 'caution-page');
     console.log('testmode');
-    
+
   }
 
   return (
