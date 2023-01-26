@@ -79,11 +79,13 @@ export default function Home() {
   const handleRouter = () => {
     // getData(); //まずはFirestoreのデータを取得しておく
     router.push({
-      pathname: '/components/CautionPage',
+      // pathname: '/components/CautionPage',
+      pathname: '/test',
       query: {
         data: delSwitch,
       },
-    }, 'caution-page');
+    // }, 'caution-page');
+    }, 'test');
   }
 
   return (
