@@ -1,7 +1,7 @@
 import Head from 'next/head'
 import { useRouter } from 'next/router';
 
-export default function cautionPage() {
+export default function Delete() {
 
   const routerReturn=useRouter();
 

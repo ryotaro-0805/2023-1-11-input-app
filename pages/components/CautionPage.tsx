@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 
 const routerData=useRouter();
 
-export default function cautionPage() {
+export default function CautionPage() {
 
   // const router=useRouter();
   // console.log(router. query.data);
@@ -36,7 +36,7 @@ export default function cautionPage() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <h2>This is cautionPage</h2>
+      <h2>This is CautionPage</h2>
       <h3>※Firestore data are going to be deleted!</h3>
       <h3>Are you sure?</h3>
       <button onClick={()=>returnFnc('yes')} style={{width:'80px'}}>Yes</button>
