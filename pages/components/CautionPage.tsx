@@ -1,7 +1,7 @@
 import Head from 'next/head'
-// import { useRouter } from 'next/router';
+import { useRouter } from 'next/router';
 
-// const routerData=useRouter();
+const routerData=useRouter();
 
 export default function cautionPage() {
 
@@ -9,21 +9,21 @@ export default function cautionPage() {
   // console.log(router. query.data);
 
   const returnFnc=(judge:string)=>{
-    // if (judge==='yes'){
-    //   router.push({
-    //     pathname:'/components/Delete',
-    //     query:{
-    //       data:'yes',
-    //     },
-    //   });
-    // } else {
-    //   router.push({
-    //     pathname:'/',
-    //     query:{
-    //       data:'no',
-    //     },
-    //   });
-    // }
+    if (judge==='yes'){
+      routerData.push({
+        pathname:'/components/Delete',
+        query:{
+          data:'yes',
+        },
+      });
+    } else {
+      routerData.push({
+        pathname:'/',
+        query:{
+          data:'no',
+        },
+      });
+    }
     console.log('test-mode');
     
   }
