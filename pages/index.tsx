@@ -48,7 +48,7 @@ export default function Home() {
   }
 
   useEffect(() => {
-    delText.map(inData => deleteDoc(doc(db, 'users', inData)));
+    // delText.map(inData => deleteDoc(doc(db, 'users', inData)));
     getData();
   }, [delText]);
 
