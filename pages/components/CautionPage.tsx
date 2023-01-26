@@ -6,9 +6,9 @@ import Head from 'next/head'
 export default function cautionPage() {
 
   // const router=useRouter();
-  console.log(router. query.data);
+  // console.log(router. query.data);
 
-  const returnFnc=(judge)=>{
+  const returnFnc=(judge:string)=>{
     // if (judge==='yes'){
     //   router.push({
     //     pathname:'/components/Delete',
