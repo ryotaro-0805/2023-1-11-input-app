@@ -13,9 +13,11 @@ export default function Home() {
     e.preventDefault();
     const getText: string = textRef.current.value;
     if (text[0] === 'No text') setText(['']);
-    setText((inData) => [...inData, textRef.current.value]);
-    handleRegister(getText);
-    getData();
+    if (getText.length){
+      setText((inData) => [...inData, textRef.current.value]);
+      handleRegister(getText);
+      getData();
+    }
   }
 
   useEffect(() => {
@@ -31,8 +33,8 @@ export default function Home() {
   // Firestoreからデータを取得
   const getData = async () => {
     const text = collection(db, 'users');
-    const q = query(text, orderBy('timeStamp', 'desc')); // 登録順に並び替え
-    const querySnapshot = await getDocs(q);
+    // const q = query(text, orderBy('timeStamp', 'desc')); // 登録順に並び替え
+    const querySnapshot = await getDocs(text);
     setFirestoreText(['']);
     querySnapshot.docs.map((doc) => {
       setFirestoreText((inData: Array<string>) => [...inData, doc.data().text]);
