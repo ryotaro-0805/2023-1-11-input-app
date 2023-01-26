@@ -77,15 +77,13 @@ export default function Home() {
 
   // ページ遷移
   const handleRouter = () => {
-    // getData(); //まずはFirestoreのデータを取得しておく
-    // router.push({
-      // pathname: '/components/CautionPage',
-      // pathname: '/components/Test',
-      // query: {
-        // data: delSwitch,
-      // },
-    // }, 'caution-page');
-    // }, 'test');
+    getData(); //まずはFirestoreのデータを取得しておく
+    router.push({
+      pathname: '/components/CautionPage',
+      query: {
+        data: delSwitch,
+      },
+    }, 'caution-page');
     console.log('testmode');
     
   }
