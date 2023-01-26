@@ -2,7 +2,7 @@ import Head from 'next/head'
 import { useEffect, useRef, useState } from 'react'
 import { db } from '../public/firebase';
 import { collection, getDocs, doc, addDoc, deleteDoc } from 'firebase/firestore';
-import { useRouter } from 'next/router';
+// import { useRouter } from 'next/router';
 
 export default function Home() {
   const [text, setText] = useState(['No text']);
@@ -71,11 +71,11 @@ export default function Home() {
 
   useEffect(() => {
     getData();
-    router.query.data === 'yes' && deleteFnc();
+    // router.query.data === 'yes' && deleteFnc();
   }, []);
 
   // ページ遷移
-  const router = useRouter();
+  // const router = useRouter();
   const handleRouter = () => {
     // getData(); //まずはFirestoreのデータを取得しておく
     // router.push({
