@@ -1,17 +1,17 @@
 import Head from 'next/head'
-import { useRouter } from 'next/router';
+// import { useRouter } from 'next/router';
 
 export default function cautionPage() {
 
-  const router=useRouter();
+  // const router=useRouter();
 
   const finishHandle=()=>{
-    router.push({
-      pathname:'/',
-      query:{
-        data:'yes',
-      },
-    });
+    // router.push({
+    //   pathname:'/',
+    //   query:{
+    //     data:'yes',
+    //   },
+    // });
   }
 
   return (

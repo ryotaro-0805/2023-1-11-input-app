@@ -1,11 +1,11 @@
 import Head from 'next/head'
-import { useRouter } from 'next/router';
+// import { useRouter } from 'next/router';
 
 // const routerData=useRouter();
 
 export default function cautionPage() {
 
-  const router=useRouter();
+  // const router=useRouter();
   console.log(router. query.data);
 
   const returnFnc=(judge)=>{
