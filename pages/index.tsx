@@ -37,13 +37,13 @@ export default function Home() {
     });
   }
 
-  const [delText, setDelText] = useState([]);
+  const [delText, setDelText]:any = useState([]);
 
   // Firestoreのデータを削除
   const deleteFnc = async () => {
     const querySnapshot = await (getDocs(collection(db, 'users')));
     querySnapshot.docs.map((doc) => {
-      setDelText((inData: Array<string>) => [...inData, doc.id]);
+      setDelText((inData:never) => [...inData, doc.id]);
     });
   }
 
