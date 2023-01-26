@@ -1,10 +1,10 @@
 import Head from 'next/head'
 import { useRouter } from 'next/router';
 
-const routerData=useRouter();
 
 export default function CautionPage() {
-
+  
+  const routerData=useRouter();
   // const router=useRouter();
   // console.log(router. query.data);
 
