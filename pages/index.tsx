@@ -2,12 +2,13 @@ import Head from 'next/head'
 import { useEffect, useRef, useState } from 'react'
 import { db } from '../public/firebase';
 import { collection, getDocs, doc, addDoc, deleteDoc } from 'firebase/firestore';
-// import { useRouter } from 'next/router';
+import { useRouter } from 'next/router';
 
 export default function Home() {
   const [text, setText] = useState(['No text']);
   const textRef: any = useRef('');
   const delSwitch = 'no';
+  const router = useRouter();
   const handleText = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const getText: string = textRef.current.value;
@@ -48,7 +49,7 @@ export default function Home() {
   }
 
   useEffect(() => {
-    // delText.map(inData => deleteDoc(doc(db, 'users', inData)));
+    delText.map(inData => deleteDoc(doc(db, 'users', inData)));
     getData();
   }, [delText]);
 
@@ -75,7 +76,6 @@ export default function Home() {
   }, []);
 
   // ページ遷移
-  // const router = useRouter();
   const handleRouter = () => {
     // getData(); //まずはFirestoreのデータを取得しておく
     // router.push({
