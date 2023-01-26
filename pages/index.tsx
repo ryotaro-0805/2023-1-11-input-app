@@ -78,14 +78,16 @@ export default function Home() {
   const router = useRouter();
   const handleRouter = () => {
     // getData(); //まずはFirestoreのデータを取得しておく
-    router.push({
+    // router.push({
       // pathname: '/components/CautionPage',
-      pathname: '/test',
-      query: {
-        data: delSwitch,
-      },
+      // pathname: '/components/Test',
+      // query: {
+        // data: delSwitch,
+      // },
     // }, 'caution-page');
-    }, 'test');
+    // }, 'test');
+    console.log('testmode');
+    
   }
 
   return (

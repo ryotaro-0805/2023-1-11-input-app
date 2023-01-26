@@ -9,21 +9,22 @@ export default function cautionPage() {
   console.log(router. query.data);
 
   const returnFnc=(judge)=>{
-    if (judge==='yes'){
-      router.push({
-        pathname:'/components/Delete',
-        query:{
-          data:'yes',
-        },
-      });
-    } else {
-      router.push({
-        pathname:'/',
-        query:{
-          data:'no',
-        },
-      });
-    }
+    // if (judge==='yes'){
+    //   router.push({
+    //     pathname:'/components/Delete',
+    //     query:{
+    //       data:'yes',
+    //     },
+    //   });
+    // } else {
+    //   router.push({
+    //     pathname:'/',
+    //     query:{
+    //       data:'no',
+    //     },
+    //   });
+    // }
+    console.log('test-mode');
     
   }
   
